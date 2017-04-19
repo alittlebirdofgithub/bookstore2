@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="default" extends="struts-default">
+        <!-- 用户登录 -->
+        <action name="login" class="org.action.LoginAction">
+            <result name="admin"> /admin.jsp </result>
+            <result name="error"> error.jsp </result>
+            <result name="student"> /student.jsp </result>
+            <result name="input"> /login.jsp </result>
+        </action>
+        <action name="selectBook" class="org.action.LendAction" method="selectAllLend">
+            <result name="success"> /lend.jsp </result>
+        </action>
+        <action name="lendBook" class="org.action.LendAction" method="lendBook">
+            <result name="success"> /lend.jsp </result>
+        </action>
+    </package>
+    <constant name="struts.i18n.encoding" value="GB2312"></constant>
+    <constant name="struts.multipart.saveDir" value="/tmp"></constant>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+</struts>
