@@ -111,5 +111,32 @@ public class LendDao {
             DBConn.CloseConn();
         }
     }
-
+    public Lend selectByBookISBN(String ISBN)
+    {
+        try {
+            conn = DBConn.getConn();
+            PreparedStatement pstmt = conn.prepareStatement("SELECT *FROM lend WHERE ISBN=?");
+            pstmt.setString(1,ISBN);
+            ResultSet rs=pstmt.executeQuery();
+            if(rs.next())
+            {
+                Lend lend = new Lend();
+                lend.setBookId(rs.getString(1));
+                lend.setReaderId(rs.getString(2));
+                lend.setISBN(rs.getString(3));
+                lend.setLendTime(rs.getDate(4).toString());
+                return lend;
+            }
+            else
+            {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            DBConn.CloseConn();
+        }
+    }
 }

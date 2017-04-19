@@ -6,6 +6,7 @@ import org.model.Book;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by 18673 on 2017/4/18 0018.
@@ -60,6 +61,45 @@ public class BookDao {
             e.printStackTrace();
             return false;
         } finally {
+            DBConn.CloseConn();
+        }
+    }
+    public boolean addBook(Book book) {
+        try {
+            conn =DBConn.getConn();
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO book VALUES (?,?,?,?,?,?,?,?,?)");
+            pstmt.setString(1,book.getISBN());
+            pstmt.setString(2,book.getBookName());
+            pstmt.setString(3,book.getAuthor());
+            pstmt.setString(4,book.getPublisher());
+            pstmt.setFloat(5,book.getPrice());
+            pstmt.setInt(6,book.getCnum());
+            pstmt.setInt(7,book.getSnum());
+            pstmt.setString(8,book.getSummary());
+            pstmt.setBytes(9,book.getPhoto());
+            pstmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            DBConn.CloseConn();
+        }
+    }
+    public boolean deleteBook(String ISBN)
+    {
+        try {
+            conn = DBConn.getConn();
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM book WHERE ISBN=?");
+            pstmt.setString(1,ISBN);
+            pstmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
             DBConn.CloseConn();
         }
     }

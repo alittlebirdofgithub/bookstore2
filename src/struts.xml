@@ -6,6 +6,23 @@
 
 <struts>
     <package name="default" extends="struts-default">
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <action name="book" class="org.action.BookAction"  >
+            <result name="success">/bookmanage.jsp</result>
+            <result name="input">/bookmanage.jsp</result>
+            <interceptor-ref name="defaultStack">
+                <param name="validation.excludeMethods">*</param>
+                <param name="validation.includeMethods">addBook,updateBook</param>
+            </interceptor-ref>
+        </action>
+        <action name="getImage" class="org.action.BookAction" method="getImage">
+            <interceptor-ref name="defaultStack">
+                <param name="validation.excludeMethods">*</param>
+                <param name="validation.includeMethods">addBook,updateBook</param>
+            </interceptor-ref>
+        </action>
         <!-- 用户登录 -->
         <action name="login" class="org.action.LoginAction">
             <result name="admin"> /admin.jsp </result>
