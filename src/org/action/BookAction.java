@@ -45,7 +45,6 @@ private Book book;
 
     public Book getBook() {
         return book;
-
     }
     BookDao bookDao = new BookDao();
 
